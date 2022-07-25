@@ -5,18 +5,61 @@
 ## "Быстрый" старт
 
 ```js
-$$ npx create-react-app имя-проекта - Запуск CRA
+npx create-react-app имя-проекта // Запуск CRA
 ```
 
 ## ПРОЕКТЫ:
 
-- 1 React SPA + react-spring
+### 1 React SPA + react-spring + react-router-dom
 
-```1 React SPA + react-spring
-$$ npm i react-router-dom react-spring - Установка 2 библ (модуль узла для маршрутизаци и библ анимации).
+Анимация при переходе с одной страницы на другую.
+
+Подключение Materialize (библ. компонентов UI) в html
+
+```html
+<link
+  rel="stylesheet"
+  href=" https: //
+cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+/>
 ```
 
-созд неск стр. для кажд стр. создать свой rout, поместить в опред структуру со свичом. выглядит так. нужен объект логакаци достаем из спец хука, далее создаем transition из одноименного хука use. useTransition постояно получ объкт локации, для каждой стр уник., 2ым параметром передаём key - передаём location key (уник ключ для каждой стр)
+Установка 2 библ (модуль узла для маршрутизаци и библ анимации).
+
+```js
+npm i react-router-dom react-spring
+```
+
+Подкл. необходимые importы.
+Хук и аним из spring.
+Маршрутизатор, библ.(с v6 Switch заменен на Routes), комп., хук(возвращ. текущий URL), ссылки из router
+
+```js
+import { useTransition, animated } from "react-spring";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+  Link,
+} from "react-router-dom";
+import //
+// Switch,
+
+"react-router-dom";
+```
+
+Позволит использ аним при переходах с одной страницы на др.
+-- перем. location достаем из спец хука useLocation. Объ. логакаци необходим
+-- перем. transition созд. из useTransition. Получ объ. локации (уник. для каждой стр.), анимацию(в {} пропис стили), (устаревшее - 3им параметром передаём key - передаём location.pathname key (уник ключ для каждой стр))
+-- устр. - (перем transitions вернет массив хука useTransition, перебор mapом до - текущих эл(item), props(стили прописаны в {...}), и уник ключ.)
+-- В обёртку transition, необходимый КОД, с передачей парам. - &#123;transitions((props, item) =&gt; ( КОД )&#125;
+-- В обёртку animated, КОД, с передачей парам. - &lt;animated.div style={props}&gt; КОД &lt;/animated.div&gt;
+-- В обёртку Routes(ранее Switch), все Route, с передачей парам. - &lt;Routes location={item}&gt; КОД &lt;/Routes&gt;
+-- Cоздать неск стр., для кажд созд свой Route, поместить их в опред структуру со свичом.
+Старый код - &lt;Route exact path="/" component={HomePage} /&gt;
+Новый код - &lt;Route exact path="/" element={&lt;HomePage /&gt;} /&gt;
+-- Для исключения "прыжка от невидимого соседа", можно на блок до transition повесить position: relative, и м/у animated и Routes завести блок с position: absolute
 
 <!-- # Начало работы с приложением Create React
 
