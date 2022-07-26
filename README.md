@@ -12,10 +12,19 @@ npx create-react-app имя-проекта // Запуск CRA
 ```
 
 <h2 align="center">ПРОЕКТЫ</h2>
-<p>React SPA</p>
 
-<h3 align="center">React SPA + react-spring + react-router-dom</h3>
-<p>Анимация при переходе с одной страницы на другую.</p>
+- [React SPA](#React-SPA)
+- `ReactTransitionGroup`
+  <br/>
+
+#### React SPA
+
+#### <h3 align="center">React SPA</h3>
+
+<h3 align="center">React SPA</h3>
+<hr>
+<p align="center">react-spring + react-router-dom. Анимация при переходе с одной страницы на другую.</p>
+<br/>
 
 #### Подключение Materialize (библ. компонентов UI) в html
 
@@ -26,16 +35,17 @@ npx create-react-app имя-проекта // Запуск CRA
 />
 ```
 
+<br/>
+
 #### Установка 2 библ (модуль узла для маршрутизаци и библ анимации).
 
 ```js
 npm i react-router-dom react-spring
 ```
 
-#### Подкл. необходимые importы.
+<br/>
 
-<p>Хук и аним из spring.</p>
-<p>Маршрутизатор, библ.(с v6 Switch заменен на Routes), комп., хук(возвращ. текущий URL), ссылки из router</p>
+#### Подкл. необходимые importы.
 
 ```js
 import { useTransition, animated } from "react-spring";
@@ -48,32 +58,41 @@ import {
 } from "react-router-dom";
 ```
 
-#### Позволит использ аним при переходах с одной страницы на др.
+`*` <p>Хук и аним из spring.</p>
+`*` <p>Библ для динам. маршрутов, библ.(с v6 Switch заменен на Routes), комп., хук(возвращ. текущий URL), ссылки из router</p>
+<br/>
 
-- перем. `location` достаем из хука useLocation. Объ. логакаци необходим
-- перем. `transition` созд. из хука useTransition. Получ объ. локации (уник. для каждой стр.), анимацию(в {} пропис стили), (устаревшее - 3им параметром передаём key - передаём location.pathname key (уник ключ для каждой стр))
+#### Структура кода.
+
+- перем. `location` достаем из хука useLocation - `const location = useLocation();`. Объект логакаци необходим
+- перем. `transition` созд. из хука useTransition - `const transitions = useTransition(location, { style });`.
+  <br/>Получаем объ. локации (уник. для каждой стр.), анимацию(в {} пропис. стили), (устаревшее - 3им параметром передаём key - передаём location.pathname key (уник ключ для каждой стр))
 - устр. - (перем transitions вернет массив хука useTransition, перебор mapом до - текущих эл(item), props(стили прописаны в {...}), и уник ключ.)
-- В обёртку `transition`, заворачиваем КОД, с передачей парам. - `&#123;transitions((props, item) =&gt; ( КОД )&#125;`
-- В обёртку `animated`, КОД, с props - `&lt;animated.div style={props}&gt; КОД &lt;/animated.div&gt;`
-- В обёртку `Routes`(ранее Switch), все `Route`, с item - `&lt;Routes location={item}&gt; КОД &lt;/Routes&gt;`
+- В обёртку `transition`, заворачиваем КОД, с передачей парам. - `{transitions((props, item) => ( КОД )}`
+- В обёртку `animated`, КОД, с props - `<animated.div style={props}> КОД </animated.div>`
+- В обёртку `Routes`(ранее Switch), все `Route`, с item - `<Routes location={item}> КОД </Routes>`
 - Cоздать неск стр., для кажд созд свой `Route`, поместить их в опред структуру со свичом.
-  Старый код - `&lt;Route exact path="/" component={HomePage} /&gt;`
-  Новый код - `&lt;Route exact path="/" element={&lt;HomePage /&gt;} /&gt;`
+  <br/>Старый код - `<Route exact path="/" component={HomePage} />`
+  <br/>Новый код - `<Route exact path="/" element={<HomePage />} />`
 - Для исключения "прыжка от невидимого соседа", можно на блок до transition повесить `position: relative`, и м/у `animated` и `Routes` завести блок с `position: absolute`
+  <br/>
 
-- **[`По YT видео BSmXK6z0h3s&t - Анимация перехода между страницами в React SPA с react-spring`](#HTML)**
-- По YT видео [BSmXK6z0h3s&t](https://www.youtube.com/watch?v=BSmXK6z0h3s) - Анимация перехода между страницами в React SPA с react-spring]()
-- По YT видео [\*\*[`BSmXK6z0h3s&t`]](https://www.youtube.com/watch?v=BSmXK6z0h3s) - Анимация перехода между страницами в React SPA с react-spring]("")
-- По YT видео \*\*[`BSmXK6z0h3s&t`](https://www.youtube.com/watch?v=BSmXK6z0h3s) - Анимация перехода между страницами в React SPA с react-spring](#)
+- Проект `React SPA` перемещён в App.jsx. На его основе сделать `<Header/>` и ссылки на другие проекты.
+
+  <br/>
+
+- По YT видео [Анимация перехода между страницами в React SPA с react-spring](https://www.youtube.com/watch?v=BSmXK6z0h3s)
+  <br/>
+  <br/>
 
 <h3 align="center">React Transition Group</h3>
-<p>Анимация при переходе с одной страницы на другую.</p>
+<p align="center">Анимации в React</p>
 
 #### Вкл в предыдущий проект пока не удается
 
 <p>не раб - No routes matched location "/src/project/ReactTransitionGroup/ReactTransitionGroup.jsx" </p>
 
-- По YT видео [`7MMRcMutqpI`](https://youtu.be/7MMRcMutqpI?list=PL6DxKON1uLOH0vVpdrZhUAVpHerNbUxfF) - Анимации в React]()
+- По YT видео [Анимации в React](https://youtu.be/7MMRcMutqpI?list=PL6DxKON1uLOH0vVpdrZhUAVpHerNbUxfF)
 
 <!-- # Начало работы с приложением Create React
 
