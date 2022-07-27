@@ -19,6 +19,50 @@
     height: 100px;
     border-radius: 50%;
     border: 3px dashed #000;
+    // 2ую аним не присвоить, можно через 2ой класс(.rotate. Сложнее)
+    // animation: show-loader 0.5s forwards; // до Transition
+  }
+  // 2ая аним. раб ток одна. до Transition
+  // .rotate {
+  //   animation: rotate-loader 0.5s forwards;
+  //   animation-delay: 5s;
+  // }
+  // аним. хука Transition
+  // вход
+  .cicrle.entering {
+    animation: show-loader 0.5s forwards;
+  }
+  // введено
+  .cicrle.entered {
+    animation: rotate-loader 0.5s infinite;
+  }
+  // выход
+  .cicrle.exiting {
+    animation: show-loader 0.5s reverse;
+  }
+  // вышел
+  .cicrle.exited {
+  }
+  @keyframes show-loader {
+    0% {
+      opacity: 0;
+      transform: translateY(-200px);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  @keyframes rotate-loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
 
