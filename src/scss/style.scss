@@ -8,13 +8,17 @@
 .ReactTransitionGroup {
   // width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
   .wrap {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 90vh;
+    height: 300px;
   }
-  .cicrle {
+  .circle {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -29,24 +33,115 @@
   // }
   // аним. хука Transition
   // вход
-  .cicrle.entering {
-    animation: show-loader 0.5s forwards;
+  .circle {
+    &.entering,
+    &-enter-active,
+    &-show {
+      animation: show-loader 0.5s forwards;
+      background: red;
+    }
   }
   // введено
-  .cicrle.entered {
-    animation: rotate-loader 0.5s infinite;
+  .circle {
+    &.entered,
+    &-enter-done,
+    &-rotate {
+      animation: rotate-loader 0.5s infinite;
+      background: orange;
+    }
   }
   // выход
-  .cicrle.exiting {
-    animation: show-loader 0.5s reverse;
+  .circle {
+    &.exiting,
+    &-exit-active,
+    &-hide {
+      animation: show-loader 0.5s reverse;
+      background: yellow;
+    }
   }
   // вышел
-  .cicrle.exited {
+  .circle {
+    &-exited {
+      background: green;
+    }
   }
+
+  // .CSSTransitionComp,
+  // .TransitionComp
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .CSSTransitionComp,
+  .SwitchTransitionComp {
+    .wrap {
+      height: calc(300px - 40.67px);
+    }
+  }
+  .SwitchTransitionComp {
+    .wrap {
+      display: block;
+    }
+    .label {
+      margin-bottom: 0.5rem;
+    }
+
+    .modes {
+      margin-bottom: 1rem;
+    }
+
+    .button-container {
+      margin-bottom: 0.5rem;
+    }
+
+    .fade-enter .btn {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    .fade-enter-active .btn {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+    .fade-exit .btn {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+    .fade-exit-active .btn {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    .fade-enter-active .btn,
+    .fade-exit-active .btn {
+      transition: opacity 500ms, transform 500ms;
+    }
+    [type="radio"]:not(:checked),
+    [type="radio"]:checked {
+      position: relative;
+      opacity: 1;
+      pointer-events: fill;
+    }
+  }
+  //  ----------------------------------------------------------------------------------
+  .circle-enter {
+    opacity: 0;
+  }
+  .circle-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+  }
+  .circle-exit {
+    opacity: 1;
+  }
+  .circle-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+  //  ----------------------------------------------------------------------------------
   @keyframes show-loader {
     0% {
       opacity: 0;
-      transform: translateY(-200px);
+      transform: translateY(-100px);
     }
     50% {
       opacity: 1;
