@@ -10,12 +10,12 @@ import { Container, Button, Alert, Form } from "react-bootstrap";
 // Transition Компонент из видео
 function TransitionComp() {
   // нов. сост. 1ый эл. - сост, 2ой - fn измен. сост. По умолч. false
-  const [loaderVisible, setloaderVisible] = useState(false);
+  const [loaderVisible, setLoaderVisible] = useState(false);
 
   // симуляция асинх логики (тип загрузка данных для выхода loadera). 1ый timeuot покаж loader ч/з 1с, 2ой ч/з 5с. скроет
   useEffect(() => {
-    setTimeout(() => setloaderVisible(true), 1000);
-    setTimeout(() => setloaderVisible(false), 3000);
+    setTimeout(() => setLoaderVisible(true), 1000);
+    setTimeout(() => setLoaderVisible(false), 3000);
   }, []);
 
   return (
@@ -23,14 +23,14 @@ function TransitionComp() {
       <div className="TransitionComp">
         {/* слушат. событ. - вызов fn и меняет сост на противоположное */}
         <h5>Transition</h5>
-        <button onClick={() => setloaderVisible(!loaderVisible)}>
+        <button onClick={() => setLoaderVisible(!loaderVisible)}>
           {/* динамич обновл текст */}
           {loaderVisible ? "hide" : "show"}
         </button>
         <div className="wrap">
           {/* // до Transition. условие добавл/удал блока .circle
         {loaderVisible && <div className="circle rotate" />} */}
-          {/* Transition оборачивает аним-ый блок. Подробнее - https://reactcommunity.org/react-transition-group/transition */}
+          {/* Transition оборачивает аним-ый блок. Вкл. .cl при появлении/входе/выходе/завершении. Подробнее - https://reactcommunity.org/react-transition-group/transition */}
           {/* props. in - вкл аним., timeout - время аним., mountOnEnter - монтаж, unmountOnExit - демонтаж, onEnter - слуш.событ(6 шт, можно использ.) */}
           <Transition
             in={loaderVisible}
@@ -56,7 +56,7 @@ function TransitionComp() {
 // CSSTransition Компонент + Доки
 function CSSTransitionComp() {
   // из видео.нов. сост. 1ый эл. - сост, 2ой - fn измен. сост. По умолч. false
-  const [loaderVisible, setloaderVisible] = useState(false);
+  const [loaderVisible, setLoaderVisible] = useState(false);
   // из доков
   const [showButton, setShowButton] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
@@ -65,8 +65,8 @@ function CSSTransitionComp() {
 
   // симуляция асинх логики (тип загрузка данных для выхода loadera). 1ый timeuot покаж loader ч/з 1с, 2ой ч/з 5с. скроет
   useEffect(() => {
-    setTimeout(() => setloaderVisible(true), 1000);
-    setTimeout(() => setloaderVisible(false), 3000);
+    setTimeout(() => setLoaderVisible(true), 1000);
+    setTimeout(() => setLoaderVisible(false), 3000);
   }, []);
 
   return (
@@ -79,14 +79,14 @@ function CSSTransitionComp() {
           {showVar ? "вариант Видео" : "вариант Доки"}
         </button>
         {showVar && (
-          <button onClick={() => setloaderVisible(!loaderVisible)}>
+          <button onClick={() => setLoaderVisible(!loaderVisible)}>
             {/* динамич обновл текст */}
             {loaderVisible ? "hide" : "show"}
           </button>
         )}
         <div className="wrap">
-          {/* CSSTransition оборачивает аним-ый блок. Наследник Transition расширеный. Подробнее - https://reactcommunity.org/react-transition-group/css-transition */}
-          {/* props. in - вкл аним., timeout - время аним., mountOnEnter - монтаж, unmountOnExit - демонтаж, onEnter - слуш.событ(6 шт, можно использ.) */}
+          {/* CSSTransition оборачивает аним-ый блок. Наследник Transition, расширеный. Вкл. .cl при появлении/входе/выходе + своим. Подробнее - https://reactcommunity.org/react-transition-group/css-transition */}
+          {/* props. in - вкл аним., timeout - время аним., mountOnEnter - монтаж, unmountOnExit - демонтаж, classNames - им. .cl на появление/вход/выход/завершение */}
           {showVar ? (
             <CSSTransition
               in={loaderVisible}
@@ -145,17 +145,23 @@ function CSSTransitionComp() {
 // SwitchTransitionComp Компонент + Доки
 function SwitchTransitionComp() {
   // из видео.нов. сост. 1ый эл. - сост, 2ой - fn измен. сост. По умолч. false
-  const [loaderVisible, setloaderVisible] = useState(false);
+  const [loaderVisible, setLoaderVisible] = useState(false);
+  const [toggle, setToggle] = useState(false);
   // из доков
-  const [mode, setMode] = React.useState("out-in");
-  const [state, setState] = React.useState(true);
+  const [mode, setMode] = useState("out-in");
+  const [state, setState] = useState(true);
   // перекл м/у видео и док
   const [showVar, setshowVar] = useState(true);
 
+  // меняет mode на тикущ. значен. штзге
+  function changeHandlerу(e) {
+    setMode(e.target.value)
+  }
+
   // симуляция асинх логики (тип загрузка данных для выхода loadera). 1ый timeuot покаж loader ч/з 1с, 2ой ч/з 5с. скроет
   useEffect(() => {
-    setTimeout(() => setloaderVisible(true), 1000);
-    setTimeout(() => setloaderVisible(false), 3000);
+    setTimeout(() => setLoaderVisible(true), 1000);
+    setTimeout(() => setLoaderVisible(false), 3000);
   }, []);
 
   const modes = ["out-in", "in-out"];
@@ -170,7 +176,7 @@ function SwitchTransitionComp() {
           {showVar ? "вариант Видео" : "вариант Доки"}
         </button>
         {showVar && (
-          <button onClick={() => setloaderVisible(!loaderVisible)}>
+          <button onClick={() => setLoaderVisible(!loaderVisible)}>
             {/* динамич обновл текст */}
             {loaderVisible ? "hide" : "show"}
           </button>
@@ -178,27 +184,32 @@ function SwitchTransitionComp() {
         <div
           className="wrap"
           // style={{showVar ? (display: "flex"): (display: "block")}}
+          // стиль по условию тернарного оператора
           style={{ display: showVar === true ? "flex" : "block" }}
         >
-          {/* CSSTransition оборачивает аним-ый блок. Наследник Transition расширеный. Подробнее - https://reactcommunity.org/react-transition-group/css-transition */}
-          {/* props. in - вкл аним., timeout - время аним., mountOnEnter - монтаж, unmountOnExit - демонтаж, onEnter - слуш.событ(6 шт, можно использ.) */}
           {showVar ? (
-            <CSSTransition
-              in={loaderVisible}
-              timeout={500}
-              mountOnEnter
-              unmountOnExit
-              // в classNames можно предать объ со своими назв. стиля. Для уже существ .cl аним, указ их здесь.
-              // classNames="circle"
-              classNames={{
-                enterActive: "circle-show",
-                enterDone: "circle-rotate",
-                exitActive: "circle-hide",
-              }}
-            >
-              {/* fn не нужна. созд loader напрямую */}
-              <div className="circle"></div>
-            </CSSTransition>
+            <>
+              <div>
+                <label htmlFor="out-in" className="label"></label>
+                {/* со слуш-лем для измен. mode */}
+                <inpet onChange={(e) => changeHandlerу(e)} id={"out-in"} type="radio" name="radio" value="out-in"></inpet>
+                <label htmlFor="in-out" className="label"></label>
+                <inpet onChange={(e) => changeHandlerу(e)} id={"in-out"} type="radio" name="radio" value="in-out"></inpet>
+              </div>
+              {/* SwitchTransition оборачивает аним-ый блок. Управ. рендером при переходе. 2 режима. 1ый ждет пока стар. уйдёт + нов., 2ой вставл. нов. + убирает стар. Подробнее - https://reactcommunity.org/react-transition-group/css-transition */}
+              {/* props. mode - режим перехода */}
+              <SwitchTransition mode={mode}>
+                <CSSTransition
+                  timeout={500}
+                  className="fade">
+                  {/* кнп со слуш-лем с вызов fn измен. значен. на противоположное */}
+                  <button onClick={() => setToggle(!toggle)}>
+                    {/* условие одно из */}
+                    {toggle ? "- стар + нов" : "+ нов - стар"}
+                  </button>
+                </CSSTransition>
+              </SwitchTransition>
+            </>
           ) : (
             <>
               <div className="label">Mode:</div>
@@ -206,7 +217,10 @@ function SwitchTransitionComp() {
                 {modes.map((m) => (
                   <Form.Check
                     key={m}
-                    custom
+                    // custom
+                    // Предупреждение: получено значение «true» для нелогического атрибута «custom».
+                    // Если вы хотите записать его в DOM, вместо этого передайте строку: custom="true" или custom={value.toString()}. на входе
+                    custom="true"
                     inline
                     label={m}
                     id={`mode=msContentScript${m}`}
