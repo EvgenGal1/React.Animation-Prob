@@ -146,6 +146,7 @@ function CSSTransitionComp() {
 function SwitchTransitionComp() {
   // из видео.нов. сост. 1ый эл. - сост, 2ой - fn измен. сост. По умолч. false
   const [loaderVisible, setLoaderVisible] = useState(false);
+  // запуск аним
   const [toggle, setToggle] = useState(false);
   // из доков
   const [mode, setMode] = useState("out-in");
@@ -153,16 +154,37 @@ function SwitchTransitionComp() {
   // перекл м/у видео и док
   const [showVar, setshowVar] = useState(true);
 
+  // измен checked. 1 вар
+  // const [x, setX] = useState(false);
+  // const soldCheckbox = ({ target: { checked } }) => {
+  //   console.log(x, checked);
+  //   setX(checked);
+  // };
+  // 2 вар
+  //   const handler = useCallback(() => {
+  //   setX(!x);
+  // }, []);
+  // 3 вар
+  //   const handler = (e) => {
+  //   const { target } = e;
+  //   const value = target.type === 'checkbox' ? target.checked : target.value;
+  //   const { name } = target;
+  //   setForm( f => ({ ...f, [name]: value }));
+  // };
+  // 4 вар
+  const [checked, setChecked] = React.useState(true);
+
+
   // меняет mode на тикущ. значен. штзге
-  function changeHandlerу(e) {
+  function changeHandler(e) {
     setMode(e.target.value)
   }
 
   // симуляция асинх логики (тип загрузка данных для выхода loadera). 1ый timeuot покаж loader ч/з 1с, 2ой ч/з 5с. скроет
-  useEffect(() => {
-    setTimeout(() => setLoaderVisible(true), 1000);
-    setTimeout(() => setLoaderVisible(false), 3000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => setLoaderVisible(true), 1000);
+  //   setTimeout(() => setLoaderVisible(false), 3000);
+  // }, []);
 
   const modes = ["out-in", "in-out"];
 
@@ -175,38 +197,67 @@ function SwitchTransitionComp() {
           {/* динамич обновл текст */}
           {showVar ? "вариант Видео" : "вариант Доки"}
         </button>
-        {showVar && (
+        {/* {showVar && (
           <button onClick={() => setLoaderVisible(!loaderVisible)}>
-            {/* динамич обновл текст */}
             {loaderVisible ? "hide" : "show"}
           </button>
-        )}
+        )} */}
         <div
           className="wrap"
           // style={{showVar ? (display: "flex"): (display: "block")}}
           // стиль по условию тернарного оператора
-          style={{ display: showVar === true ? "flex" : "block" }}
+          style={{
+            display: showVar === true ? "flex" : "block", flexDirection: "column",
+            alignItems: "center", justifyContent: "flex-start"
+          }}
         >
           {showVar ? (
             <>
               <div>
                 <label htmlFor="out-in" className="label"></label>
                 {/* со слуш-лем для измен. mode */}
-                <inpet onChange={(e) => changeHandlerу(e)} id={"out-in"} type="radio" name="radio" value="out-in"></inpet>
+                <input onChange={(e) => {
+                  changeHandler(e);
+                  // 1 вар
+                  // soldCheckbox()  
+                  // 4 вар
+                  setChecked(!checked)
+                }}
+                  defaultChecked={checked}
+                  // ? вар
+                  // checked={x} 
+                  id={"out-in"} type="radio" name="radio" value="out-in" ></input>
                 <label htmlFor="in-out" className="label"></label>
-                <inpet onChange={(e) => changeHandlerу(e)} id={"in-out"} type="radio" name="radio" value="in-out"></inpet>
+                <input onChange={(e) => {
+                  changeHandler(e);
+                  // 1 вар
+                  // soldCheckbox()
+                  // 4 вар
+                  setChecked(!checked)
+                }}
+                  // defaultChecked={checked}
+                  // ? вар
+                  // checked={x} 
+                  id={"in-out"} type="radio" name="radio" value="in-out"></input>
               </div>
               {/* SwitchTransition оборачивает аним-ый блок. Управ. рендером при переходе. 2 режима. 1ый ждет пока стар. уйдёт + нов., 2ой вставл. нов. + убирает стар. Подробнее - https://reactcommunity.org/react-transition-group/css-transition */}
               {/* props. mode - режим перехода */}
               <SwitchTransition mode={mode}>
                 <CSSTransition
+                  key={toggle}
+                  // *** изучить - хз пока что это
+                  // addEndListener={(node, done) => {
+                  //   node.addEventListener("transitionend", done, false);
+                  // }}
                   timeout={500}
                   className="fade">
                   {/* кнп со слуш-лем с вызов fn измен. значен. на противоположное */}
-                  <button onClick={() => setToggle(!toggle)}>
-                    {/* условие одно из */}
-                    {toggle ? "- стар + нов" : "+ нов - стар"}
-                  </button>
+                  <div className="button-container">
+                    <button onClick={() => setToggle(!toggle)}>
+                      {/* условие одно из */}
+                      {toggle ? "- стар + нов" : "+ нов - стар"}
+                    </button>
+                  </div>
                 </CSSTransition>
               </SwitchTransition>
             </>
@@ -253,6 +304,7 @@ function SwitchTransitionComp() {
               </div>
             </>
           )}
+          {/* // !!! не раб - при клик по input.radio в аним, вых. ошб. - react_devtools_backend.js:4026 Warning: Encountered two children with the same key, `true`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. */}
         </div>
       </div>
     </>
