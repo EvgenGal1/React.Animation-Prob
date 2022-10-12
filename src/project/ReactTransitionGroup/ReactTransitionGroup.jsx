@@ -7,7 +7,7 @@ import {
 // доп из react-bootstrap для примеров Доков ReactTransitionGroup
 import { Container, Button, Alert, Form } from "react-bootstrap";
 
-// Transition Компонент из видео
+// Transition Компонент из видео (неск. .cl на объ. для аним.)
 function TransitionComp() {
   // нов. сост. 1ый эл. - сост, 2ой - fn измен. сост. По умолч. false
   const [loaderVisible, setLoaderVisible] = useState(false);
@@ -53,7 +53,7 @@ function TransitionComp() {
   );
 }
 
-// CSSTransition Компонент + Доки
+// CSSTransition Компонент + Доки (как Transition. есть неск. .cl на объ. для аним.)
 function CSSTransitionComp() {
   // из видео.нов. сост. 1ый эл. - сост, 2ой - fn измен. сост. По умолч. false
   const [loaderVisible, setLoaderVisible] = useState(false);
@@ -85,56 +85,63 @@ function CSSTransitionComp() {
           </button>
         )}
         <div className="wrap">
-          {/* CSSTransition оборачивает аним-ый блок. Наследник Transition, расширеный. Вкл. .cl при появлении/входе/выходе + своим. Подробнее - https://reactcommunity.org/react-transition-group/css-transition */}
-          {/* props. in - вкл аним., timeout - время аним., mountOnEnter - монтаж, unmountOnExit - демонтаж, classNames - им. .cl на появление/вход/выход/завершение */}
           {showVar ? (
-            <CSSTransition
-              in={loaderVisible}
-              timeout={500}
-              mountOnEnter
-              unmountOnExit
-              // в classNames можно предать объ со своими назв. стиля. Для уже существ .cl аним, указ их здесь.
-              // classNames="circle"
-              classNames={{
-                enterActive: "circle-show",
-                enterDone: "circle-rotate",
-                exitActive: "circle-hide",
-              }}
-            >
-              {/* fn не нужна. созд loader напрямую */}
-              <div className="circle"></div>
-            </CSSTransition>
-          ) : (
-            <Container style={{ margin: "0" }}>
-              {showButton && (
-                <Button onClick={() => setShowMessage(true)} size="lg">
-                  Show Message
-                </Button>
-              )}
+            <>
+              {/* из видео  */}
+              {/* CSSTransition оборачивает аним-ый блок. Наследник Transition, расширеный. Вкл. .cl при появлении/входе/выходе + своим. Подробнее - https://reactcommunity.org/react-transition-group/css-transition */}
+              {/* props. in - вкл аним., timeout - время аним., mountOnEnter - монтаж, unmountOnExit - демонтаж, classNames - им. .cl на появление/вход/выход/завершение */}
+
               <CSSTransition
-                in={showMessage}
-                timeout={300}
-                classNames="alert"
+                in={loaderVisible}
+                timeout={500}
+                mountOnEnter
                 unmountOnExit
-                onEnter={() => setShowButton(false)}
-                onExited={() => setShowButton(true)}
+                // в classNames можно предать объ со своими назв. стиля. Для уже существ .cl аним, указ их здесь.
+                // classNames="circle"
+                classNames={{
+                  enterActive: "circle-show",
+                  enterDone: "circle-rotate",
+                  exitActive: "circle-hide",
+                }}
               >
-                <Alert
-                  variant="primary"
-                  dismissible
-                  onClose={() => setShowMessage(false)}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "stretch",
-                  }}
-                >
-                  <Alert.Heading>Аним смс</Alert.Heading>
-                  <p>Это предупр</p>
-                  <Button onClick={() => setShowMessage(false)}>Close</Button>
-                </Alert>
+                {/* fn не нужна. созд loader напрямую */}
+                <div className="circle"></div>
               </CSSTransition>
-            </Container>
+            </>
+          ) : (
+            <>
+              {/* из доков  */}
+              <Container style={{ margin: "0" }}>
+                {showButton && (
+                  <Button onClick={() => setShowMessage(true)} size="lg">
+                    Show Message
+                  </Button>
+                )}
+                <CSSTransition
+                  in={showMessage}
+                  timeout={300}
+                  classNames="alert"
+                  unmountOnExit
+                  onEnter={() => setShowButton(false)}
+                  onExited={() => setShowButton(true)}
+                >
+                  <Alert
+                    variant="primary"
+                    dismissible
+                    onClose={() => setShowMessage(false)}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "stretch",
+                    }}
+                  >
+                    <Alert.Heading>Аним смс</Alert.Heading>
+                    <p>Это предупр</p>
+                    <Button onClick={() => setShowMessage(false)}>Close</Button>
+                  </Alert>
+                </CSSTransition>
+              </Container>
+            </>
           )}
         </div>
       </div>
@@ -142,7 +149,7 @@ function CSSTransitionComp() {
   );
 }
 
-// SwitchTransitionComp Компонент + Доки
+// SwitchTransitionComp Компонент + Доки (выбор перехода у дочки)
 function SwitchTransitionComp() {
   // из видео.нов. сост. 1ый эл. - сост, 2ой - fn измен. сост. По умолч. false
   const [loaderVisible, setLoaderVisible] = useState(false);
@@ -174,10 +181,9 @@ function SwitchTransitionComp() {
   // 4 вар
   const [checked, setChecked] = React.useState(true);
 
-
   // меняет mode на тикущ. значен. штзге
   function changeHandler(e) {
-    setMode(e.target.value)
+    setMode(e.target.value);
   }
 
   // симуляция асинх логики (тип загрузка данных для выхода loadera). 1ый timeuot покаж loader ч/з 1с, 2ой ч/з 5с. скроет
@@ -207,38 +213,56 @@ function SwitchTransitionComp() {
           // style={{showVar ? (display: "flex"): (display: "block")}}
           // стиль по условию тернарного оператора
           style={{
-            display: showVar === true ? "flex" : "block", flexDirection: "column",
-            alignItems: "center", justifyContent: "flex-start"
+            display: showVar === true ? "flex" : "block",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-start",
           }}
         >
           {showVar ? (
             <>
               <div>
-                <label htmlFor="out-in" className="label"></label>
+                <label htmlFor="out-in" className="label">
+                  out-in
+                </label>
                 {/* со слуш-лем для измен. mode */}
-                <input onChange={(e) => {
-                  changeHandler(e);
-                  // 1 вар
-                  // soldCheckbox()  
-                  // 4 вар
-                  setChecked(!checked)
-                }}
+                <input
+                  onChange={(e) => {
+                    changeHandler(e);
+                    // 1 вар
+                    // soldCheckbox()
+                    // 4 вар
+                    setChecked(!checked);
+                  }}
                   defaultChecked={checked}
                   // ? вар
-                  // checked={x} 
-                  id={"out-in"} type="radio" name="radio" value="out-in" ></input>
-                <label htmlFor="in-out" className="label"></label>
-                <input onChange={(e) => {
-                  changeHandler(e);
-                  // 1 вар
-                  // soldCheckbox()
-                  // 4 вар
-                  setChecked(!checked)
-                }}
+                  // checked={x}
+                  id={"out-in"}
+                  type="radio"
+                  name="radio"
+                  value="out-in"
+                ></input>
+              </div>
+              <div>
+                <label htmlFor="in-out" className="label">
+                  in-out
+                </label>
+                <input
+                  onChange={(e) => {
+                    changeHandler(e);
+                    // 1 вар
+                    // soldCheckbox()
+                    // 4 вар
+                    setChecked(!checked);
+                  }}
                   // defaultChecked={checked}
                   // ? вар
-                  // checked={x} 
-                  id={"in-out"} type="radio" name="radio" value="in-out"></input>
+                  // checked={x}
+                  id={"in-out"}
+                  type="radio"
+                  name="radio"
+                  value="in-out"
+                ></input>
               </div>
               {/* SwitchTransition оборачивает аним-ый блок. Управ. рендером при переходе. 2 режима. 1ый ждет пока стар. уйдёт + нов., 2ой вставл. нов. + убирает стар. Подробнее - https://reactcommunity.org/react-transition-group/css-transition */}
               {/* props. mode - режим перехода */}
@@ -250,7 +274,8 @@ function SwitchTransitionComp() {
                   //   node.addEventListener("transitionend", done, false);
                   // }}
                   timeout={500}
-                  className="fade">
+                  className="fade"
+                >
                   {/* кнп со слуш-лем с вызов fn измен. значен. на противоположное */}
                   <div className="button-container">
                     <button onClick={() => setToggle(!toggle)}>
@@ -304,10 +329,34 @@ function SwitchTransitionComp() {
               </div>
             </>
           )}
-          {/* // !!! не раб - при клик по input.radio в аним, вых. ошб. - react_devtools_backend.js:4026 Warning: Encountered two children with the same key, `true`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. */}
+          {/* // ??? не раб - при клик по input.radio в аним, вых. ошб. - react_devtools_backend.js:4026 Warning: Encountered two children with the same key, `true`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. */}
         </div>
       </div>
     </>
+  );
+}
+
+// TransitionCroup (аним групп объ-ов)
+function TransitionCroupComp() {
+  // управ input 
+  const [text, setText] = useState("");
+  // хранение списка в послед. аним. с объ. по умолчан
+  const [todoList, setTodoList] = useState([{ id: 1, text: "Первый пп" }, { id: 2, text: "Второй пп" }, { id: 3, text: "Третий пп" }]);
+
+  return (
+    <div>
+      <div className="TransitionCroupComp">
+        {/* сост + его изменение */}
+        <input value={text} onChange={e => setText(e.target.value)} type="text" />
+        <button type="button">Добавить</button>
+      </div>
+      {/* список отрис ч/з map */}
+      <ul>
+        {todoList.map(({ id, text }) =>
+          <li key={id}>{id} {text}</li>
+        )}
+      </ul>
+    </div>
   );
 }
 
@@ -317,6 +366,7 @@ function ReactTransitionGroup() {
       <TransitionComp />
       <CSSTransitionComp />
       <SwitchTransitionComp />
+      <TransitionCroupComp />
     </div>
   );
 }

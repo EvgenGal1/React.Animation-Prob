@@ -47,7 +47,7 @@ function ReactSPA() {
     // <Router>
     <>
       <Header />
-      {/* // ! не раб - блок вложеный в main, при absolute, отражается на фиксир. высоту  */}
+      {/* // ??? не раб - блок вложеный в main, при absolute, отражается на фиксир. высоту  */}
       <main
         className="container"
         style={{ position: "relative", height: "150vmax", overflow: "hidden" }}

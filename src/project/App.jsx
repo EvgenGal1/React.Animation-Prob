@@ -3,7 +3,7 @@ import '../scss/style.scss';
 import { BrowserRouter as Router } from "react-router-dom";
 
 import { ReactSPA } from "./ReactSPA+react-spring/ReactSPA.jsx";
-import { ReactTransitionGroup } from "./ReactTransitionGroup/ReactTransitionGroup.jsx";
+// import { ReactTransitionGroup } from "./ReactTransitionGroup/ReactTransitionGroup.jsx";
 
 function App() {
   return (

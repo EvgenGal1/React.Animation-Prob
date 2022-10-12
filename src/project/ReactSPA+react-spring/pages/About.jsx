@@ -1,7 +1,7 @@
 function About() {
   return (
     <>
-      <div className="video-container">
+      {/* <div className="video-container">
         <iframe
           title="video YT Q8TXgCzxEnw"
           width="853"
@@ -10,7 +10,7 @@ function About() {
           frameBorder="0"
           allowFullScreen
         />
-      </div>
+      </div> */}
       <div className="collection">
         <a href="#!" className="collection-item">
           Alvin
