@@ -79,6 +79,8 @@
       height: calc(300px - 40.67px);
     }
   }
+
+  // SwitchTransitionComp
   .SwitchTransitionComp {
     .wrap {
       display: block;
@@ -191,6 +193,31 @@
     }
     100% {
       transform: rotate(360deg);
+    }
+  }
+
+  // TransitionCroupComp
+  .TransitionCroupComp {
+    input[type="text"] {
+      height: 20px;
+      margin-bottom: 10px;
+      border: 1px solid #000;
+    }
+    button {
+      margin-bottom: 15px;
+    }
+    .todo {
+      border: 1px solid #000;
+      padding: 5px 10px;
+      margin-bottom: 5px;
+    }
+
+    // аним по переходам из CSSTransitionComp. аним из fade
+    .todo.enter-active {
+      animation: fade-in 500ms forwards;
+    }
+    .todo.exit-active {
+      animation: fade-out 500ms forwards;
     }
   }
 }

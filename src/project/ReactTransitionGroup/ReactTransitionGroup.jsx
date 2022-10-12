@@ -3,6 +3,7 @@ import {
   Transition,
   CSSTransition,
   SwitchTransition,
+  TransitionGroup
 } from "react-transition-group";
 // доп из react-bootstrap для примеров Доков ReactTransitionGroup
 import { Container, Button, Alert, Form } from "react-bootstrap";
@@ -340,22 +341,53 @@ function SwitchTransitionComp() {
 function TransitionCroupComp() {
   // управ input 
   const [text, setText] = useState("");
-  // хранение списка в послед. аним. с объ. по умолчан
+  // хранение списка в объ. по умолчан. для послед. аним.
   const [todoList, setTodoList] = useState([{ id: 1, text: "Первый пп" }, { id: 2, text: "Второй пп" }, { id: 3, text: "Третий пп" }]);
 
+  // fn добав. эл. в лист из input 
+  function addTodo() {
+    // в список разворач стар.лист + нов.эл. с id датой и текст из input
+    // setTodoList([...todoList, { id: Date.now(), text }]) // 13 чисел (метка врем. - кол-во сек. с 01.01.1970)
+    // setTodoList([...todoList, { id: new Date().getTime(), text }]) // 13 цифр (как метка времени)
+    setTodoList([...todoList, { id: new Date().getMilliseconds(), text }]) // 3 числа до 1к (милисек.)
+    // setTodoList([...todoList, { id: Date.now() * Math.random(), text }]) // ~ 12+4 числа (метка вр. + рандом)
+    // setTodoList([...todoList, { id: (new Date().getTime()).toString(36), text }]) // буква + ~4цифры + ~3букв (время к строке)
+    // setTodoList([...todoList, { id: Math.random(), text }]) // 0. + ~15цифр (рандом от 0 вроде до 1)
+  }
+
   return (
-    <div>
-      <div className="TransitionCroupComp">
+    <div className="TransitionCroupComp">
+      <h5>TransitionCroupComp</h5>
+      <div >
         {/* сост + его изменение */}
         <input value={text} onChange={e => setText(e.target.value)} type="text" />
-        <button type="button">Добавить</button>
+        {/* слуш.клик. с вызов. fn */}
+        <button onClick={() => addTodo()} type="button">Добавить</button>
       </div>
-      {/* список отрис ч/з map */}
-      <ul>
+      {/* для аним весь список оборач. в комп TransitionGroup. props указ. ul - список */}
+      <TransitionGroup component="ul">
+        {/* список отрис ч/з map */}
+        {/* <ul> */}
         {todoList.map(({ id, text }) =>
-          <li key={id}>{id} {text}</li>
+          <CSSTransition
+            key={id}
+            // кажд.эл. оборач в CSSTransition
+            // указ таймаут
+            timeout={500}
+            // класс для аним
+            className="todo"
+          >
+            <li
+              // key={id}
+              className="todo"
+              // удал.эл. по клик. Измен. лист проводя ч/з фильтр, если нажатый id равен из листа, то в лист он не попадает 
+              onClick={() => setTodoList([...todoList.filter(todo => todo.id !== id)])}
+            >{id} {text}
+            </li>
+          </CSSTransition>
         )}
-      </ul>
+        {/* </ul> */}
+      </TransitionGroup>
     </div>
   );
 }
