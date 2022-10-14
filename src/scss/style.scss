@@ -7,7 +7,7 @@
 // ReactTransitionGroup =======================================================================================
 .ReactTransitionGroup {
   // width: 100vw;
-  height: 100vh;
+  // height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -15,8 +15,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
-    height: 300px;
+    // height: 90vh;
+    height: 200px;
   }
   .circle {
     width: 100px;
@@ -76,7 +76,7 @@
   .CSSTransitionComp,
   .SwitchTransitionComp {
     .wrap {
-      height: calc(300px - 40.67px);
+      height: calc(200px - 40.67px);
     }
   }
 

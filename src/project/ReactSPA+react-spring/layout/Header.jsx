@@ -13,13 +13,19 @@ function Header() {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/contacts">Contacts</Link>
+            <Link to="/Contacts">Contacts</Link>
           </li>
           <li>
             <Link to="/DopPoin">DopPoin</Link>
           </li>
           <li>
             <Link to="/ReactTransitionGroup">ReactTransitionGroup</Link>
+          </li>
+          <li>
+            <Link to="Prob">Prob</Link>
+          </li>
+          <li>
+            <Link to="/Prob2">Prob2</Link>
           </li>
           {/* <li>
             <Link to="../../ReactTransitionGroup/ReactTransitionGroup">

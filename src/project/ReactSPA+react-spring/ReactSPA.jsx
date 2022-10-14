@@ -16,9 +16,11 @@ import { Contacts } from "./pages/Contacts";
 import { DopPoin } from "./pages/DopPoin";
 
 // стороние проекты
-import { ReactTransitionGroup } from "../ReactTransitionGroup/ReactTransitionGroup.jsx";
+import ReactTransitionGroup from "../ReactTransitionGroup/ReactTransitionGroup.jsx";
 
 function ReactSPA() {
+
+  // ^ до ULBITV.RTG.6. по видео Михаила Непомнящего 
   const location = useLocation();
   const transitions = useTransition(location, {
     from: {
@@ -43,28 +45,45 @@ function ReactSPA() {
       // transform: 'translateY(50%)'
     },
   });
+
   return (
     // <Router>
     <>
       <Header />
-      {/* // ??? не раб - блок вложеный в main, при absolute, отражается на фиксир. высоту  */}
+      {/* // ^ видео ULBITV.RTG.6. + доки ------------------------------------------------------------------------ */}
+      {/* <main className="container">
+        <SwitchTransition>
+          <CSSTransition
+            key={location.pathname}
+            nodeRef={nodeRef}
+            timeout={300}
+            classNames="page"
+            unmountOnExit
+          >
+            {(state) => (
+              <div ref={nodeRef} className="page">
+                {currentOutlet}
+              </div>
+            )}
+          </CSSTransition>
+        </SwitchTransition>
+      </main> */}
+
+
+      {/* // ^ до ULBITV.RTG.6. по видео Михаила Непомнящего  */}
       <main
+        // ??? не раб - блок вложеный в main, при absolute, отражается на фиксир. высоту. в результате footer плавает при различных установках. не воспрнимает высоту main
         className="container"
         style={{ position: "relative", height: "150vmax", overflow: "hidden" }}
       >
-        {/* <div
-          style={{ position: "relative", height: "90vh", overflow: "hidden" }}
-        > */}
         {transitions((props, item) => (
           <animated.div style={props}>
             <div style={{ position: "absolute", width: "100%" }}>
-              {/* position: "absolute",  */}
               <Routes location={item}>
-                {/* <Route exact path="/" component={HomePage} /> */}
+                <Route exact path="/" component={HomePage} />
+                {/* // старый способ */}
                 <Route exact path="/" element={<HomePage />} />
-                {/* <Route exact path="/About" component={About} /> */}
                 <Route exact path="/About" element={<About />} />
-                {/* <Route exact path="/Contacts" component={Contacts} /> */}
                 <Route exact path="/Contacts" element={<Contacts />} />
                 <Route exact path="/DopPoin" element={<DopPoin />} />
                 <Route
@@ -72,17 +91,12 @@ function ReactSPA() {
                   path="/ReactTransitionGroup"
                   element={<ReactTransitionGroup />}
                 />
-                {/* <Route
-                    exact
-                    path="../ReactTransitionGroup/ReactTransitionGroup"
-                    element={<ReactTransitionGroup />}
-                  /> */}
               </Routes>
             </div>
           </animated.div>
         ))}
-        {/* </div> */}
       </main>
+
       <Footer />
     </>
     // </Router>

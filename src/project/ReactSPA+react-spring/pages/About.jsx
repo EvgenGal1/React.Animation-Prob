@@ -1,4 +1,5 @@
-function About() {
+export function About() {
+  // export default function About() {
   return (
     <>
       {/* <div className="video-container">
@@ -29,4 +30,5 @@ function About() {
   );
 }
 
-export { About };
+// export { About };
+// export default About;
