@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Prob() {
   return (
-    <div className="prob">
+    <div className="prob2">
       <div>Prob 2</div>
       <p>Lorem ipsum dolor sit amet, consectetur adip</p>
 

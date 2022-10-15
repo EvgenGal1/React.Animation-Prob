@@ -120,57 +120,61 @@ export function ReactAnimationProb() {
   // });
 
   return (
-    // <Router>
     <>
       <Header />
 
       {/* 
       // ^ видео ULBITV.RTG.6. ------------------------------------------------------------------------
-      <main className="app">
-        <div className="div">
-          <NavLink to="/" >ReactTransitionGroup</NavLink>
-          <NavLink to="/Prob" >Prob</NavLink>
-          <NavLink to="/Prob2" >Prob2</NavLink>
-          <NavLink to="/" ></NavLink>
-          <NavLink to="/" ></NavLink>
-        </div>
-        111111
-        <Routes>
-          22222222
-          {routes.map(({ path, element, name, Component }) =>
-            <Route path={path} key={name} element={Component}>
-              console.log(name)
-              {({ match }) =>
-                <CSSTransition
-                  timeout={1000}
-                  classNames="page"
-                  unmountOnExit
-                  in={match != null}
-                  key={location.pathname}
-                  nodeRef={nodeRef}
-                >
-                  0000
-                  {(state) => (
-                    <div ref={nodeRef} className="page">
-                      {currentOutlet}
-                    </div>
-                  )}
-                  {Component}
-                </CSSTransition>}
-            </Route>)}
-        </Routes>
-        333333
-      </main> 
+      // ??? не раб - pages грузит, переходит, НО без анимации. Скорее от старого кода.
+      <BrowserRouter>
+        <main className="App">
+          <div className="div">
+            <NavLink to="/">ReactTransitionGroup</NavLink>
+            <NavLink to="Prob">Prob</NavLink>
+            <NavLink to="/Prob2">Prob2</NavLink>
+            <NavLink to="/About">About</NavLink>
+          </div>
+          <Routes>
+            // вообще не отрабатывает аним.
+            {routes.map(({ path, Component, Element }) => (
+              <Route path={path} key={path} element={Element}>
+                {({ match }) => (
+                  <SwitchTransition>
+                    <CSSTransition
+                      timeout={1000}
+                      classNames="page"
+                      unmountOnExit
+                      path={path}
+                      // in={match != null}
+                    >
+                      <>
+                        // разницы нет. вроде вернее {Element} хз
+                        {Element}
+                        {Component}
+                        <Component />
+                        <Element />
+                      </>
+                    </CSSTransition>
+                  </SwitchTransition>
+                )}
+              </Route>
+            ))}
+          </Routes>
+          <footer>footer</footer>
+        </main>
+      </BrowserRouter>
       */}
 
 
       {/* // ^ по докам React Transition Group ------------------------------------------------------------------------ */}
+      {/* // * раб. НО не мало кода. Сложного подкл. в roor.render RouterProvider, Надо прописывать масс.объ-ов и влад. каждую ссылку, Логику дублировать е/и старт не из одного файла,  */}
       <main>
         <SwitchTransition>
           <CSSTransition
             key={location.pathname}
             nodeRef={nodeRef}
             timeout={300}
+            // два способа прописать вид аним в css (.page|pages)
             classNames="page"
             unmountOnExit
           >
@@ -187,7 +191,7 @@ export function ReactAnimationProb() {
       {/*
       // ^ до ULBITV.RTG.6. по видео Михаила Непомнящего ------------------------------------------------------------------------
       <main
-      // ??? не раб - блок вложеный в main, при absolute, отражается на фиксир. высоту. в результате footer плавает при различных установках. не воспрнимает высоту main
+      // ??? не раб - footer не закрепить к низу. блок вложеный в main, при absolute, отражается на фиксир. высоту. в результате footer плавает при различных установках. не воспренимает высоту main. фикс высота и absolut для того чтоб стр не выталкивали др при переходах
         className="container"
         style={{ position: "relative", height: "150vmax", overflow: "hidden" }}
       >

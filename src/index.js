@@ -31,7 +31,7 @@ import App from "./project/App";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-// ^ по докам React Transition Group
+// ^ по докам React Transition Group ----------------------------------------------------------------------------------
 const routes = [
   {
     path: "/ReactTransitionGroup",
@@ -58,7 +58,7 @@ const routes = [
     nodeRef: createRef(),
   },
 ];
-
+//
 const router = createBrowserRouter([
   {
     path: "/",
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
     })),
   },
 ]);
-
+//
 // function Example() {
 //   const location = useLocation();
 //   const currentOutlet = useOutlet();
@@ -119,30 +119,18 @@ const router = createBrowserRouter([
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(<RouterProvider router={router} />);
-//  ----------------------------------------------------------------------------------
+// ^ по докам React Transition Group ----------------------------------------------------------------------------------
 
-// ^ до ULBITV.RTG.6. по видео Михаила Непомнящего
+// ^ до ULBITV.RTG.6. по видео Михаила Непомнящего ----------------------------------------------------------------------------------
 // const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(
-//   <BrowserRouter>
-//     <App />
-//   </BrowserRouter>
-// )();
+// root.render(<App />)();
 
 // const container = document.getElementById("root");
 // const root = createRoot(container);
 // root.render(
-//   <BrowserRouter>
+//   <>
+//     <BrowserRouter>
 //     <App />
-//   </BrowserRouter>
+//     </BrowserRouter>
+//   </>
 // );
-// <>/
-
-// до ULBITV.RTG.6.
-// <>
-//   {/* <React.StrictMode> */}
-//   {/* <Router> */}
-//   <App />
-//   {/* </Router> */}
-//   {/* </React.StrictMode> */}
-// </>
