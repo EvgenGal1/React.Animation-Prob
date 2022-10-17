@@ -1,94 +1,56 @@
-import { useTransition, animated } from "react-spring";
+import { useLocation, useOutlet } from "react-router-dom";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
+
+import { routes } from "./ReactSPA+react-spring/layout/Router";
 
 import { Header } from "./ReactSPA+react-spring/layout/Header.jsx";
 import { Footer } from "./ReactSPA+react-spring/layout/Footer.jsx";
 
-// страницы из проекта
-// import { ReactSPA } from "./ReactSPA+react-spring/ReactSPA.jsx";
-import { HomePage } from "./ReactSPA+react-spring/pages/HomePage";
-import { About } from "./ReactSPA+react-spring/pages/About";
-import { Contacts } from "./ReactSPA+react-spring/pages/Contacts";
-import { DopPoin } from "./ReactSPA+react-spring/pages/DopPoin";
-
-import ReactTransitionGroup from "./ReactTransitionGroup/ReactTransitionGroup.jsx";
-import Prob from "./ReactTransitionGroup/Prob";
-import Prob2 from "./ReactTransitionGroup/Prob2";
-
-import { BrowserRouter } from "react-router-dom";
-import { createRef } from "react";
-import { createRoot } from "react-dom/client";
-import {
-  // В версии 6 Switch заменен на Routes
-  // Switch,
-  Routes,
-  Route,
-  createBrowserRouter,
-  RouterProvider,
-  NavLink,
-  useLocation,
-  useOutlet,
-} from "react-router-dom";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
-// import { Container, Navbar, Nav } from "react-bootstrap";
-
-// стороние проекты
-
 // ^ видео ULBITV.RTG.6. ++ по докам React Transition Group 
 // routы масс объ.(путь вызова и компонент)
 // const routes = [{ path: "/", element={<ReactTransitionGroup />}  }];
-const routes = [
-  {
-    path: "/ReactTransitionGroup",
-    name: "ReactTransitionGroup",
-    // element: <RTG />,
-    Component: <ReactTransitionGroup />,
-    nodeRef: createRef(),
-  },
-  {
-    path: "/Prob",
-    name: "Prob",
-    element: <Prob />,
-    Component: <Prob />,
-    nodeRef: createRef(),
-  },
-  {
-    path: "/Prob2",
-    name: "Prob2",
-    element: <Prob2 />,
-    Component: <Prob2 />,
-    nodeRef: createRef(),
-  },
-  {
-    path: "/About",
-    name: "About",
-    element: <About />,
-    Component: <About />,
-    nodeRef: createRef(),
-  },
-  {
-    path: "/Contacts",
-    name: "Contacts",
-    element: <Contacts />,
-    Component: <Contacts />,
-    nodeRef: createRef(),
-  },
-];
-// ^ по докам React Transition Group 
-// // const router = createBrowserRouter([
-// const router = createBrowserRouter([
+// export const routes = [
 //   {
-//     path: "/",
-//     element: <ReactAnimationProb />,
-//     children: routes.map((route) => ({
-//       index: route.path === "/",
-//       path: route.path === "/" ? undefined : route.path,
-//       element: route.element,
-//     })),
+//     path: "/ReactTransitionGroup",
+//     name: "ReactTransitionGroup",
+// element: <RTG />,
+//     Component: <ReactTransitionGroup />,
+//     nodeRef: createRef(),
 //   },
-// ]);
+//   {
+//     path: "/Prob",
+//     name: "Prob",
+//     element: <Prob />,
+//     Component: <Prob />,
+//     nodeRef: createRef(),
+//   },
+//   {
+//     path: "/Prob2",
+//     name: "Prob2",
+//     element: <Prob2 />,
+//     Component: <Prob2 />,
+//     nodeRef: createRef(),
+//   },
+//   {
+//     path: "/About",
+//     name: "About",
+//     element: <About />,
+//     Component: <About />,
+//     nodeRef: createRef(),
+//   },
+//   {
+//     path: "/Contacts",
+//     name: "Contacts",
+//     element: <Contacts />,
+//     Component: <Contacts />,
+//     nodeRef: createRef(),
+//   },
+// ];
 
 export function ReactAnimationProb() {
+  // useLocation - Возвращает текущий объект местоположения, который представляет текущий URL -адрес в веб -браузерах.
   const location = useLocation();
+  // useOutlet - Возвращает элемент для детского маршрута на этом уровне иерархии маршрута.Используется внутренне для рендерирования дочерних маршрутов.
   const currentOutlet = useOutlet();
   const { nodeRef } =
     routes.find((route) => route.path === location.pathname) ?? {};
@@ -122,6 +84,27 @@ export function ReactAnimationProb() {
   return (
     <>
       <Header />
+      {/* // ^ по докам React Transition Group ------------------------------------------------------------------------ */}
+      {/* // * раб. НО не мало кода. Сложного подкл. в roor.render RouterProvider, Надо прописывать масс.объ-ов и влад. каждую ссылку, Логику дублировать е/и старт не из одного файла,  */}
+      {/* // * Логику/Настройки/Дубл.код. из roor.render и стар. с неск. файлов перенёс в один файл Router.js (масс. routes и router старт) */}
+      <main>
+        <SwitchTransition>
+          <CSSTransition
+            key={location.pathname}
+            nodeRef={nodeRef}
+            timeout={300}
+            // два способа прописать вид аним в css (.page|pages)
+            classNames="page"
+            unmountOnExit
+          >
+            {(state) => (
+              <div ref={nodeRef} className="page">
+                {currentOutlet}
+              </div>
+            )}
+          </CSSTransition>
+        </SwitchTransition>
+      </main>
 
       {/* 
       // ^ видео ULBITV.RTG.6. ------------------------------------------------------------------------
@@ -165,29 +148,6 @@ export function ReactAnimationProb() {
       </BrowserRouter>
       */}
 
-
-      {/* // ^ по докам React Transition Group ------------------------------------------------------------------------ */}
-      {/* // * раб. НО не мало кода. Сложного подкл. в roor.render RouterProvider, Надо прописывать масс.объ-ов и влад. каждую ссылку, Логику дублировать е/и старт не из одного файла,  */}
-      <main>
-        <SwitchTransition>
-          <CSSTransition
-            key={location.pathname}
-            nodeRef={nodeRef}
-            timeout={300}
-            // два способа прописать вид аним в css (.page|pages)
-            classNames="page"
-            unmountOnExit
-          >
-            {(state) => (
-              <div ref={nodeRef} className="page">
-                {currentOutlet}
-              </div>
-            )}
-          </CSSTransition>
-        </SwitchTransition>
-      </main>
-
-
       {/*
       // ^ до ULBITV.RTG.6. по видео Михаила Непомнящего ------------------------------------------------------------------------
       <main
@@ -222,4 +182,4 @@ export function ReactAnimationProb() {
   );
 }
 
-// export { ReactSPA };
+// export default ReactAnimationProb;

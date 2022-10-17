@@ -28,7 +28,7 @@ code {
 
 .container {
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* АНИМАЦИЯ СТРАНИЦ (2 способа - .page|pages) ---------------------------------------------------------------------------------- */
@@ -43,24 +43,24 @@ code {
 /* 1 способ прописать анимацию (.page - на каждое дейтвие 4шт) */
 .page-enter {
   opacity: 0;
-  /* transform: scale(1.1); */
-  transform: translateX(-100%);
+  transform: scale(1.1);
+  /* transform: translateX(-100%); */
 }
 .page-enter-active {
   opacity: 1;
-  /* transform: scale(1); */
-  transform: translateX(0);
+  transform: scale(1);
+  /* transform: translateX(0); */
   transition: opacity 500ms, transform 500ms;
 }
 .page-exit {
   opacity: 1;
-  /* transform: scale(1); */
-  transform: translateX(0);
+  transform: scale(1);
+  /* transform: translateX(0); */
 }
 .page-exit-active {
   opacity: 0;
-  /* transform: scale(0.9); */
-  transform: translateX(100%);
+  transform: scale(0.9);
+  /* transform: translateX(100%); */
   transition: opacity 500ms, transform 500ms;
 }
 

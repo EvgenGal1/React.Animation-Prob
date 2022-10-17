@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+
+import "./Header.scss";
 
 function Header() {
   return (
@@ -10,27 +12,31 @@ function Header() {
         </Link>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>
-            <Link to="/about">About</Link>
+            <NavLink to="/about">About</NavLink>
           </li>
           <li>
-            <Link to="/Contacts">Contacts</Link>
+            <NavLink to="/Contacts">Contacts</NavLink>
           </li>
           <li>
-            <Link to="/DopPoin">DopPoin</Link>
+            <NavLink to="/DopPoin">DopPoin</NavLink>
           </li>
           <li>
-            <Link to="/ReactTransitionGroup">ReactTransitionGroup</Link>
-          </li>
-          <li>
-            <Link to="Prob">Prob</Link>
-          </li>
-          <li>
-            <Link to="/Prob2">Prob2</Link>
+            <NavLink to="/ReactTransitionGroup">ReactTransitionGroup</NavLink>
+            {/* <p>здесь</p> */}
+            <ul>
+              <li>
+                <NavLink to="Prob">Prob</NavLink>
+              </li>
+              <li>
+                <NavLink to="/Prob2">Prob2</NavLink>
+              </li>
+
+            </ul>
           </li>
           {/* <li>
-            <Link to="../../ReactTransitionGroup/ReactTransitionGroup">
+            <NavLink to="../../ReactTransitionGroup/ReactTransitionGroup">
               ReactTransitionGroup
-            </Link>
+            </NavLink>
           </li> */}
         </ul>
       </div>
