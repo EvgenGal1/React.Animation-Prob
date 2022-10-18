@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
+import { NavLink, Routes, Route } from "react-router-dom";
 import {
   Transition,
   CSSTransition,
@@ -7,6 +8,12 @@ import {
 } from "react-transition-group";
 // доп из react-bootstrap для примеров Доков ReactTransitionGroup
 import { Container, Button, Alert, Form } from "react-bootstrap";
+
+import { useLocation, useOutlet } from "react-router-dom";
+// import { CSSTransition, SwitchTransition } from "react-transition-group";
+
+import Prob from "./Prob";
+import Prob2 from "./Prob2";
 
 // Transition Компонент из видео (неск. .cl на объ. для аним.)
 function TransitionComp() {
@@ -182,7 +189,7 @@ function SwitchTransitionComp() {
   // 4 вар
   const [checked, setChecked] = React.useState(true);
 
-  // меняет mode на тикущ. значен. штзге
+  // меняет mode на тикущ. значен. input
   function changeHandler(e) {
     setMode(e.target.value);
   }
@@ -222,6 +229,7 @@ function SwitchTransitionComp() {
         >
           {showVar ? (
             <>
+              {/* по видео */}
               <div>
                 <label htmlFor="out-in" className="label">
                   out-in
@@ -289,6 +297,7 @@ function SwitchTransitionComp() {
             </>
           ) : (
             <>
+              {/* по докам */}
               <div className="label">Mode:</div>
               <div className="modes">
                 {modes.map((m) => (
@@ -330,6 +339,7 @@ function SwitchTransitionComp() {
               </div>
             </>
           )}
+          тип footer
           {/* // ??? не раб - при клик по input.radio в аним, вых. ошб. - react_devtools_backend.js:4026 Warning: Encountered two children with the same key, `true`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. */}
         </div>
       </div>
@@ -405,14 +415,120 @@ function TransitionCroupComp() {
   );
 }
 
+// попатка сделать другую аним на дочке
+function ProbAlterAnimComp() {
+  const routes = [
+    // {
+    //   path: "/ReactTransitionGroup",
+    //   name: "ReactTransitionGroup",
+    //   element: <ReactTransitionGroup />,
+    //   nodeRef: createRef(),
+    // },
+    {
+      path: "Prob",
+      name: "Prob",
+      element: <Prob />,
+      nodeRef: createRef(),
+    },
+    {
+      path: "Prob2",
+      name: "Prob2",
+      element: <Prob2 />,
+      nodeRef: createRef(),
+    },
+  ];
+  const location = useLocation();
+  // useOutlet - Возвращает элемент для детского маршрута на этом уровне иерархии маршрута.Используется внутренне для рендерирования дочерних маршрутов.
+  const currentOutlet = useOutlet();
+  const { nodeRef } =
+    routes.find((route) => route.path === location.pathname) ?? {};
+
+  return (
+    <div className="ProbAlterAnimComp">
+      <h5>ProbAlterAnimComp</h5>
+      <div className="prob0__nav">
+        {/* <b>перед NavLink</b> */}
+        <nav
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            height: "25px",
+            lineHeight: "1px",
+            margin: "1px",
+            padding: "1px",
+          }}
+        >
+          <NavLink to="/Prob">Prob</NavLink>
+          <NavLink to="/Prob2">Prob2</NavLink>
+        </nav>
+        {/* <b>после NavLink</b> */}
+      </div>
+      {/* <SwitchTransition>
+        <CSSTransition
+          key={location.pathname}
+          nodeRef={nodeRef}
+          timeout={300}
+          // два способа прописать вид аним в css (.page|pages)
+          classNames="page"
+          unmountOnExit
+        >
+          {(state) => (
+            <div ref={nodeRef} className="page">
+              {currentOutlet}
+            </div>
+          )}
+        </CSSTransition>
+      </SwitchTransition> */}
+      <div className="prob0__pages" style={{ display: "flex" }}>
+        {/* <b>перед Router</b> */}
+        {/* <Routes>
+          222
+          <Route path="Prob1" element={<Prob />} />
+          <Route path="Prob2" element={<Prob2 />} />
+          333 444
+        </Routes> */}
+        <Routes>
+          {/* // вообще не отрабатывает аним. */}
+          {routes.map(({ path, Component, element, name }) => (
+            <Route path={path} key={path} element={element}>
+              {({ match }) => (
+                <CSSTransition
+                  timeout={1000}
+                  classNames="page"
+                  style={{ height: "15px" }}
+                  unmountOnExit
+                  path={path}
+                  in={match != null}
+                >
+                  <>
+                    {/* // разницы нет. вроде вернее {Element} хз */}
+                    {element}
+                    {/* {Component}
+                      <Component />
+                      <Element /> */}
+                  </>
+                </CSSTransition>
+              )}
+            </Route>
+          ))}
+        </Routes>
+        {/* <b>после Router</b> */}
+      </div>
+    </div>
+  );
+}
+
 export default function ReactTransitionGroup() {
   return (
-    <div className="ReactTransitionGroup">
-      <TransitionComp />
-      <CSSTransitionComp />
-      <SwitchTransitionComp />
-      <TransitionCroupComp />
-    </div>
+    <>
+      <div className="ReactTransitionGroup">
+        <TransitionComp />
+        <CSSTransitionComp />
+        <SwitchTransitionComp />
+        <TransitionCroupComp />
+        <ProbAlterAnimComp />
+      </div>
+    </>
   );
 }
 
