@@ -1,4 +1,10 @@
-import { useLocation, useOutlet } from "react-router-dom";
+import {
+  NavLink,
+  Routes,
+  Route,
+  useLocation,
+  useOutlet,
+} from "react-router-dom";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 import { routes } from "./ReactSPA+react-spring/layout/Router";
@@ -6,7 +12,7 @@ import { routes } from "./ReactSPA+react-spring/layout/Router";
 import { Header } from "./ReactSPA+react-spring/layout/Header.jsx";
 import { Footer } from "./ReactSPA+react-spring/layout/Footer.jsx";
 
-// ^ видео ULBITV.RTG.6. ++ по докам React Transition Group 
+// ^ видео ULBITV.RTG.6. ++ по докам React Transition Group
 // routы масс объ.(путь вызова и компонент)
 // const routes = [{ path: "/", element={<ReactTransitionGroup />}  }];
 // export const routes = [
@@ -94,7 +100,7 @@ export function ReactAnimationProb() {
             nodeRef={nodeRef}
             timeout={300}
             // два способа прописать вид аним в css (.page|pages)
-            classNames="page"
+            classNames="pages"
             unmountOnExit
           >
             {(state) => (
@@ -109,43 +115,40 @@ export function ReactAnimationProb() {
       {/* 
       // ^ видео ULBITV.RTG.6. ------------------------------------------------------------------------
       // ??? не раб - pages грузит, переходит, НО без анимации. Скорее от старого кода.
-      <BrowserRouter>
-        <main className="App">
-          <div className="div">
-            <NavLink to="/">ReactTransitionGroup</NavLink>
-            <NavLink to="Prob">Prob</NavLink>
-            <NavLink to="/Prob2">Prob2</NavLink>
-            <NavLink to="/About">About</NavLink>
-          </div>
-          <Routes>
-            // вообще не отрабатывает аним.
-            {routes.map(({ path, Component, Element }) => (
-              <Route path={path} key={path} element={Element}>
-                {({ match }) => (
-                  <SwitchTransition>
-                    <CSSTransition
-                      timeout={1000}
-                      classNames="page"
-                      unmountOnExit
-                      path={path}
-                      // in={match != null}
-                    >
-                      <>
-                        // разницы нет. вроде вернее {Element} хз
-                        {Element}
-                        {Component}
-                        <Component />
-                        <Element />
-                      </>
-                    </CSSTransition>
-                  </SwitchTransition>
-                )}
-              </Route>
-            ))}
-          </Routes>
-          <footer>footer</footer>
-        </main>
-      </BrowserRouter>
+      <main className="App">
+        <div className="div">
+          <NavLink to="/ReactTransitionGroup">ReactTransitionGroup</NavLink>
+          <NavLink to="/Prob">Prob</NavLink>
+          <NavLink to="/Prob2">Prob2</NavLink>
+          <NavLink to="/About">About</NavLink>
+        </div>
+        <Routes>
+          // вообще не отрабатывает аним.
+          {routes.map(({ path, Component, element, name }) => (
+            <Route path={path} key={path} element={element}>
+              {({ state, match }) => (
+              <CSSTransition
+                timeout={300}
+                classNames="page"
+                classNames={` alert ${state}`}
+                unmountOnExit
+                mountOnEnter
+                path={path}
+                in={match != null}
+                in={state}
+                in={true}
+              >
+                <> 
+                  {(state) => (
+                    <div classNames={` alert ${state}`}>{element}</div>
+                  )}
+                </>
+              </CSSTransition>
+              )}
+            </Route>
+          ))}
+        </Routes>
+      </main> 
       */}
 
       {/*

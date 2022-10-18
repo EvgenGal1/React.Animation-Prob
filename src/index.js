@@ -1,6 +1,7 @@
 import ReactDOM, { createRoot } from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
+import { BrowserRouter, RouterProvider } from "react-router-dom";
 import { router } from "./project/ReactSPA+react-spring/layout/Router";
+import App from "./project/App";
 import "./index.css";
 
 // ^ по докам React Transition Group
@@ -16,7 +17,7 @@ root.render(<RouterProvider router={router} />);
 // root.render(
 //   <>
 //     <BrowserRouter>
-//     <App />
+//       <App />
 //     </BrowserRouter>
 //   </>
 // );

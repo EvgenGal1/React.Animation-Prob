@@ -15,7 +15,7 @@ import Prob2 from "../../ReactTransitionGroup/Prob2";
 // ^ по докам React Transition Group (перенёс из Главного root index.js)
 export const routes = [
   {
-    path: "/ReactTransitionGroup",
+    path: "ReactTransitionGroup/*",
     name: "ReactTransitionGroup",
     element: <ReactTransitionGroup />,
     nodeRef: createRef(),
